@@ -37,23 +37,20 @@
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     
-                    // split up the text file by line
-                    var lines = xmlhttp.responseText.split('\n');
-                    for(var line = 0; line < lines.length; line++){
-                        
-                        // and split each line by coma
-                        var vals = lines[line].split(",");
-                        for(var val=0; val<vals.length; val++){
-                            console.log(vals[val]);
-                        }
-                        
+                    // parse the returned responseText as JSON
+                    var result = JSON.parse(xmlhttp.responseText);
+                    console.log(result);
+                    
+                    // cycle through the coord objects and place the markers
+                    for(var i = 0; i < result.length; i++){
+                        var coords = result[i];
                         // place the markers
-                        L.marker([parseFloat(vals[1]), parseFloat(vals[2])]).addTo(map)
-                            .bindPopup(vals[0]);
+                        L.marker([parseFloat(coords[2]), parseFloat(coords[3])]).addTo(map)
+                            .bindPopup(coords[1]);
                     }
                 }
             }
-            xmlhttp.open("GET","map_data.php",true);
+            xmlhttp.open("GET","map_incidents.php",true);
             xmlhttp.send();     
             
         </script>
