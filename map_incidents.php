@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 // connect to the incident db & select all records
 $dbh=pg_connect("host=database.tcnj.edu dbname=thompsom user=thompsom password=0D1NRULEs");
-$sql="select * from incidents";
+$sql="select * from incidents.incident";
 $result=pg_exec($sql);
 
 // cycle through the records, appending them to an output array

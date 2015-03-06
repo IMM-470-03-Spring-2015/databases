@@ -21,7 +21,7 @@
     // 1. get a connection to the database server
     $dbh=pg_connect("host=database.tcnj.edu dbname=thompsom user=thompsom password=0D1NRULEs");
     // 2. build our query
-    $sql="INSERT INTO incidents (name,latitude,longitude) VALUES('". $msg_arr[0] ."',". $msg_arr[1] .",". $msg_arr[2] .");";
+    $sql="INSERT INTO incidents.incident (name,latitude,longitude) VALUES('". $msg_arr[0] ."',". $msg_arr[1] .",". $msg_arr[2] .");";
     // 3. execute it
     $result=pg_exec($sql);
 ?>

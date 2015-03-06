@@ -14,7 +14,7 @@
         // 1. get a connection to the database server
         $dbh=pg_connect("host=database.tcnj.edu dbname=thompsom user=thompsom password=0D1NRULEs");
         // 2. build our query
-        $sql="SELECT * FROM phonebook WHERE phone='".$_REQUEST['From']."';";
+        $sql="SELECT * FROM phonebook.address WHERE phone='".$_REQUEST['From']."';";
         // 3. execute it
         $result=pg_exec($sql);
         
