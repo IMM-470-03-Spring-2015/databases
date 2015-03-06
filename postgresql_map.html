@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Twilio Markers From Database!</title>
+        
+        <!-- link in the leaflet.js style sheet -->
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+        
+        <style>
+            #map { 
+                height: 650px; 
+                margin: 0 auto;
+            }
+        </style> 
+        
+    </head>
+    
+    <body>
+        <div id="map"></div>
+        
+        <!-- link in the leaflet.js library -->
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+        <script>
+            
+            // initialize our map, centered somewhere around the Cape Verde Islands
+            var map = L.map('map').setView([16, -24], 3);
+            
+            // add a MapQuest tile layer
+            L.tileLayer('http://otile4.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+            
+            // get our data from file using Ajax
+            var xmlhttp =new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    
+                    // split up the text file by line
+                    var lines = xmlhttp.responseText.split('\n');
+                    for(var line = 0; line < lines.length; line++){
+                        
+                        // and split each line by coma
+                        var vals = lines[line].split(",");
+                        for(var val=0; val<vals.length; val++){
+                            console.log(vals[val]);
+                        }
+                        
+                        // place the markers
+                        L.marker([parseFloat(vals[1]), parseFloat(vals[2])]).addTo(map)
+                            .bindPopup(vals[0]);
+                    }
+                }
+            }
+            xmlhttp.open("GET","map_data.php",true);
+            xmlhttp.send();     
+            
+        </script>
+    </body>
+</html>
