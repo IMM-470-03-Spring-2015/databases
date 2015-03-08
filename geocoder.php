@@ -1,8 +1,10 @@
 <?php
-// we can get the number of the sender using the 'Fromn' request value
+// get the number of the sender using the 'From' request value
 $from = $_REQUEST['From'];
+// get the content of the text using the 'Body' request value
 $body = $_REQUEST['Body'];
 
+// tell the browser to expect an XML response
 header("content-type: text/xml");
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
@@ -17,22 +19,10 @@ $addr = json_decode($addr_json);
 // make sure we were successful with the geocode
 if($addr->status == 'OK'){
     // we've got our geocode, do other stuff with it
-    $faddr = $addr->results[0]->formatted_address;
-    $lat = $addr->results[0]->geometry->location->lat;
-    $lon = $addr->results[0]->geometry->location->lng;
-    
-    // call the Forecast.io API
-    $forecast_json = file_get_contents('https://api.forecast.io/forecast/25c2db6aec83c0a6ccf85f5dbc086830/'.$lat.",".$lon);
-    $forecast = json_decode($forecast_json);
-    
-    // build the response message
-    $msg = "Current conditions at " . $faddr . ":\n\n";
-    $msg.= 'Skies: '.$forecast->currently->summary . "\n";
-    $msg.= 'Temp: '.$forecast->currently->temperature . " degrees\n";
-    $msg.= 'Humidity: '.($forecast->currently->humidity*100) . "%\n";
-    $msg.= 'Wind: '.$forecast->currently->windSpeed . " m/h\n";
-    $msg.= 'Visiblity: '.$forecast->currently->visibility . " m";
-    
+    $msg = "Location Details:\n\n";
+    $msg.= $addr->results[0]->formatted_address."\n";
+    $msg.= $addr->results[0]->geometry->location->lat.", ";
+    $msg.= $addr->results[0]->geometry->location->lng;
 } else {
     // there was an error, parse it and respond appropriately
     // possible values: https://developers.google.com/maps/documentation/geocoding/index#StatusCodes
@@ -40,7 +30,6 @@ if($addr->status == 'OK'){
 }
     
 ?>
-
 <Response>
     <Message>
         <?php echo $msg; ?>
