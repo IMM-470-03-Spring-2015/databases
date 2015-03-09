@@ -12,7 +12,7 @@
         
         // query the phonebook to see if the caller's number is in there
         // 1. get a connection to the database server
-        $dbh=pg_connect("host=database.tcnj.edu dbname=thompsom user=thompsom password=0D1NRULEs");
+        $dbh=pg_connect("host=database.tcnj.edu dbname=thompsom user=thompsom password=*********");
         // 2. build our query
         $sql="SELECT * FROM phonebook.address WHERE phone='".$_REQUEST['From']."';";
         // 3. execute it
