@@ -6,7 +6,6 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 $from = $_REQUEST['From'];
 $body = $_REQUEST['Body'];
 
-if ($_GET['q']) $question=$_GET['q'];
 $rpictures=true;
 
 ////////////////////////////////
