@@ -12,7 +12,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 $msg = '';
 
 // geocode using Google's geocoder: https://developers.google.com/maps/documentation/geocoding/
-$addr_json = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key="xxxxxxxxxx"&address='.urlencode($body));
+$addr_json = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key=xxxxxxxxxx&address='.urlencode($body));
 // transform the json into a PHP array
 $addr = json_decode($addr_json);
 
